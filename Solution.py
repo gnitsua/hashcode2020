@@ -1,3 +1,5 @@
+from orderedset._orderedset import OrderedSet
+
 from Library import Library
 
 
@@ -35,7 +37,6 @@ class Solution:
 
     @staticmethod
     def parse_dataset(filepath):
-
         with open(filepath, "r") as file:
             header_line = file.readline().strip("\n").split(" ")
             assert(len(header_line) == 3)
@@ -54,7 +55,7 @@ class Solution:
                     break
                 assert(len(library_info_line) == 3)
                 library_book_line = map(int, file.readline().strip("\n").split(" "))
-                result.libraries.append(Library(len(result.libraries),int(library_info_line[1]), int(library_info_line[2]),set(library_book_line)))
+                result.libraries.append(Library(len(result.libraries),int(library_info_line[1]), int(library_info_line[2]),OrderedSet(library_book_line)))
 
         return result
 
