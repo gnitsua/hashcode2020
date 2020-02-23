@@ -33,7 +33,14 @@ class Solution:
             result += self.book_scores[book]
         return result
 
+    def max_shipping_rate(self):
+        return max(map(lambda library: library.shipping_rate, self.libraries))
 
+    def max_sign_up_time(self):
+        return max(map(lambda library: library.signup_time, self.libraries))
+
+    def max_library_score(self):
+        return max(map(lambda library: library.max_score(self.book_scores), self.libraries))
 
     @staticmethod
     def parse_dataset(filepath):
