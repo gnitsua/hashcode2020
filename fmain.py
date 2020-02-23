@@ -1,11 +1,10 @@
 import numpy as np
-import matplotlib as mpl
-mpl.use('Agg')
 
 from Library import Library
 from Solution import Solution
 import skopt
 from skopt.plots import plot_evaluations
+import matplotlib.pyplot as plt
 
 def main(max_score_weight, signup_weight, shipping_rate_weight):
     solution = Solution.parse_dataset("problem_statement/f_libraries_of_the_world.txt")
@@ -84,4 +83,6 @@ if __name__ == "__main__":
     print(results)
     print(results.x)
     print(main(results.x[0],results.x[1],results.x[2]))
-    _ = plot_evaluations(results, bins=10)
+    _ = skopt.plots.plot_objective(results)
+
+    plt.show()
