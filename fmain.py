@@ -56,15 +56,16 @@ def main():
         return -solution.score()
 
 
-    results = skopt.gp_minimize(objective, SPACE, n_jobs=-1, n_calls=100, n_random_starts=10, verbose=True, xi=1000)
-    print(results)
-    print(results.x)
+    # results = skopt.gp_minimize(objective, SPACE, n_jobs=-1, n_calls=200, n_random_starts=100, verbose=True, xi=10000)
+    # print(results)
+    # print(results.x)
+    solution.sort(750, 1, 1)
     print(solution.score())
-    _ = skopt.plots.plot_objective(results)
+    # _ = skopt.plots.plot_evaluations(results, bins=10)
 
-    plt.savefig('results.png')
+    # plt.savefig('results.png')
 
-    plt.show()
+    # plt.show()
 
 
     # if(save == True):
