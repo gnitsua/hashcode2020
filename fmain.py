@@ -6,7 +6,7 @@ import skopt
 from skopt.plots import plot_evaluations
 import matplotlib.pyplot as plt
 
-def main(max_score_weight, signup_weight, shipping_rate_weight):
+def main(max_score_weight, signup_weight, shipping_rate_weight, save = False):
     solution = Solution.parse_dataset("problem_statement/f_libraries_of_the_world.txt")
 
     # solution.libraries.reverse()
@@ -67,8 +67,9 @@ def main(max_score_weight, signup_weight, shipping_rate_weight):
                             shipping_rate_weight * library.shipping_rate/MAX_SHIPPING_RATE , reverse=True)
     score = solution.score()
     print(score)
+    if(save == True):
+        solution.write_solution("F-%s.txt" % score)
     return score
-    # solution.write_solution("F-%s.txt" % score)
 
 SPACE = [skopt.space.Real(0,1.0, name="max_score_weight"),
              skopt.space.Real(0, 1.0, name="signup_weight"),
@@ -79,10 +80,12 @@ def objective(**params):
     return 10000000.0 - main(**params)
 
 if __name__ == "__main__":
-    results = skopt.gp_minimize(objective, SPACE, n_jobs=-1, n_calls=20, verbose=True)
+    results = skopt.gp_minimize(objective, SPACE, n_jobs=-1, n_calls=20, n_random_starts=10, verbose=True)
     print(results)
     print(results.x)
-    print(main(results.x[0],results.x[1],results.x[2]))
+    print(main(results.x[0],results.x[1],results.x[2],save=True))
     _ = skopt.plots.plot_objective(results)
+
+    plt.savefig('results.png')
 
     plt.show()
