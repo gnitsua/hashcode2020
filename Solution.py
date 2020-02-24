@@ -42,6 +42,29 @@ class Solution:
     def max_library_score(self):
         return max(map(lambda library: library.max_score(self.book_scores), self.libraries))
 
+    def sort(self, max_score_weight, signup_weight, shipping_rate_weight):
+        # MAX_LIBRARY_SCORE = solution.max_library_score()
+        MAX_LIBRARY_SCORE = 412714.0
+
+        # MAX_SIGNUP_TIME = solution.max_sign_up_time()
+        MAX_SIGNUP_TIME = 300.0
+
+        # MAX_SHIPPING_RATE = solution.max_shipping_rate()
+        MAX_SHIPPING_RATE = 10.0
+
+        for library in self.libraries:
+            library.books.sort(key=lambda book: self.book_scores[book], reverse=True)
+            # print(library.max_score(solution.book_scores)/MAX_LIBRARY_SCORE, 1 - library.signup_time/MAX_SIGNUP_TIME, library.shipping_rate/MAX_SHIPPING_RATE)
+
+            # print(max_score_weight * library.max_score(solution.book_scores)/MAX_LIBRARY_SCORE,
+            #                        signup_weight * 1 - library.signup_time/MAX_SIGNUP_TIME,
+            #                         shipping_rate_weight * library.shipping_rate/MAX_SHIPPING_RATE)
+        self.libraries.sort(key=lambda library:
+        max_score_weight *(library.max_score(self.book_scores) / MAX_LIBRARY_SCORE) +
+        signup_weight * (library.signup_time / MAX_SIGNUP_TIME) +
+        shipping_rate_weight * (library.shipping_rate / MAX_SHIPPING_RATE), reverse=True)
+
+
     @staticmethod
     def parse_dataset(filepath):
         with open(filepath, "r") as file:
@@ -62,7 +85,7 @@ class Solution:
                     break
                 assert(len(library_info_line) == 3)
                 library_book_line = map(int, file.readline().strip("\n").split(" "))
-                result.libraries.append(Library(len(result.libraries),int(library_info_line[1]), int(library_info_line[2]),OrderedSet(library_book_line)))
+                result.libraries.append(Library(len(result.libraries),int(library_info_line[1]), int(library_info_line[2]),list(library_book_line)))
 
         return result
 

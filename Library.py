@@ -1,7 +1,7 @@
 from orderedset import OrderedSet
 
 class Library:
-    def __init__(self, id, signup_time, shipping_rate, books = OrderedSet()):
+    def __init__(self, id, signup_time, shipping_rate, books = []):
         self.id = id
         self.signup_time = signup_time
         self.shipping_rate = shipping_rate
