@@ -54,11 +54,11 @@ class Solution:
 
         for library in self.libraries:
             library.books.sort(key=lambda book: self.book_scores[book], reverse=True)
-            # print(library.max_score(solution.book_scores)/MAX_LIBRARY_SCORE, 1 - library.signup_time/MAX_SIGNUP_TIME, library.shipping_rate/MAX_SHIPPING_RATE)
-        self.libraries.sort(key=lambda library:
-        (max_score_weight * (library.max_score(self.book_scores) / MAX_LIBRARY_SCORE) *
-         shipping_rate_weight * (library.shipping_rate / MAX_SHIPPING_RATE) /
-         (signup_weight * (library.signup_time / MAX_SIGNUP_TIME))), reverse=True)
+            # print(library.max_score(self.book_scores)/MAX_LIBRARY_SCORE, library.signup_time/MAX_SIGNUP_TIME, library.shipping_rate/MAX_SHIPPING_RATE)
+        self.libraries.sort(key=lambda library2:
+        (max_score_weight * library2.max_score(self.book_scores) / MAX_LIBRARY_SCORE *
+         shipping_rate_weight * library2.shipping_rate / MAX_SHIPPING_RATE /
+         (signup_weight * (library2.signup_time / MAX_SIGNUP_TIME))), reverse=True)
 
 
     @staticmethod

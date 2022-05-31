@@ -46,9 +46,9 @@ def main():
 
     # distance_matrix = np.load("distances/a.npy")
     # average_distance = np.mean(distance_matrix, axis=1)
-    SPACE = [skopt.space.Integer(0, 1000, name="max_score_weight"),
-             skopt.space.Integer(0, 10, name="signup_weight"),
-             skopt.space.Integer(0, 10, name="shipping_rate_weight")]
+    SPACE = [skopt.space.Integer(750, 1000, name="max_score_weight"),
+             skopt.space.Integer(0, 1000, name="signup_weight"),
+             skopt.space.Integer(0, 1000, name="shipping_rate_weight")]
 
     @skopt.utils.use_named_args(SPACE)
     def objective(**params):
@@ -59,7 +59,7 @@ def main():
     # results = skopt.gp_minimize(objective, SPACE, n_jobs=-1, n_calls=200, n_random_starts=100, verbose=True, xi=10000)
     # print(results)
     # print(results.x)
-    solution.sort(750, 1, 1)
+    solution.sort(1, 1000, 1000)
     print(solution.score())
     # _ = skopt.plots.plot_evaluations(results, bins=10)
 
